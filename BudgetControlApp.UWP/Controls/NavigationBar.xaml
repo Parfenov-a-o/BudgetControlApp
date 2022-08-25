@@ -1,0 +1,28 @@
+﻿<UserControl
+    x:Class="BudgetControlApp.UWP.Controls.NavigationBar"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BudgetControlApp.UWP.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+    <Grid Background="{StaticResource BrushPrimary1}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <TextBlock  Text="Бюджетный помощник" Grid.Row="0"></TextBlock>
+        <NavigationView PaneDisplayMode="LeftCompact" Opacity ="0.6"  Grid.Row="1"  Background="{StaticResource BrushPrimary2}" IsSettingsVisible="False" IsBackButtonVisible="Collapsed">
+            <NavigationView.MenuItems>
+                <NavigationViewItem Content="Домашняя страница"></NavigationViewItem>
+                <NavigationViewItem Content="История транзакций"></NavigationViewItem>
+                <NavigationViewItem Content="Статистика"></NavigationViewItem>
+            </NavigationView.MenuItems>
+            
+        </NavigationView>
+    </Grid>
+</UserControl>
