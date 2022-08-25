@@ -5,21 +5,40 @@
     xmlns:local="using:BudgetControlApp.UWP.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:interact="using:Microsoft.Xaml.Interactivity"
+    xmlns:interactcore="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:nav="using:BudgetControlApp.UWP.State.Navigators"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Grid Background="{StaticResource BrushPrimary1}">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <TextBlock  Text="Бюджетный помощник" Grid.Row="0"></TextBlock>
-        <NavigationView PaneDisplayMode="LeftCompact" Opacity ="0.6"  Grid.Row="1"  Background="{StaticResource BrushPrimary2}" IsSettingsVisible="False" IsBackButtonVisible="Collapsed">
+        <NavigationView Height="Auto" PaneDisplayMode="Left" CompactModeThresholdWidth="400"  Grid.Row="1"  IsSettingsVisible="False" IsBackButtonVisible="Collapsed">
             <NavigationView.MenuItems>
-                <NavigationViewItem Content="Домашняя страница"></NavigationViewItem>
-                <NavigationViewItem Content="История транзакций"></NavigationViewItem>
+                <NavigationViewItem Content="Домашняя страница">
+
+                    <interact:Interaction.Behaviors>
+                        <interactcore:EventTriggerBehavior EventName="Tapped">
+                            <interactcore:InvokeCommandAction
+                                        Command="{Binding UpdateCurrentViewModelCommand}"
+                                        CommandParameter="{x:Bind nav:ViewType.Home}"/>
+                        </interactcore:EventTriggerBehavior>
+                    </interact:Interaction.Behaviors>
+                </NavigationViewItem>
+                <NavigationViewItem Content="История транзакций">
+                    <interact:Interaction.Behaviors>
+                        <interactcore:EventTriggerBehavior EventName="Tapped">
+                            <interactcore:InvokeCommandAction
+                                        Command="{Binding UpdateCurrentViewModelCommand}"
+                                        CommandParameter="{x:Bind nav:ViewType.TransactionHistory}"/>
+                        </interactcore:EventTriggerBehavior>
+                    </interact:Interaction.Behaviors>
+                </NavigationViewItem>
                 <NavigationViewItem Content="Статистика"></NavigationViewItem>
             </NavigationView.MenuItems>
             

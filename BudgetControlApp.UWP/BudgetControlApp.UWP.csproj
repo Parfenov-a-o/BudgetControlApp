@@ -121,6 +121,8 @@
     </Compile>
     <Compile Include="BudgetControlAppDbContext.cs" />
     <Compile Include="BudgetControlAppDbContextFactory.cs" />
+    <Compile Include="Commands\UpdateCurrentViewModelCommand.cs" />
+    <Compile Include="Converters\FromViewModelToViewConverter.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -132,10 +134,21 @@
     <Compile Include="Controls\NavigationBar.xaml.cs">
       <DependentUpon>NavigationBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\ObservableObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\GenericDataService.cs" />
+    <Compile Include="State\Navigators\INavigator.cs" />
+    <Compile Include="State\Navigators\Navigator.cs" />
+    <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\TransactionHistoryViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Views\HomeView.xaml.cs">
+      <DependentUpon>HomeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TransactionHistoryView.xaml.cs">
+      <DependentUpon>TransactionHistoryView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -169,6 +182,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\HomeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TransactionHistoryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite">
@@ -182,6 +203,9 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.13</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Uwp.Managed">
+      <Version>2.0.1</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BudgetControlApp.Domain\BudgetControlApp.Domain.csproj">
@@ -191,9 +215,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\NavigationBarIcons\" />
-    <Folder Include="Commands\" />
-    <Folder Include="State\" />
-    <Folder Include="Views\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

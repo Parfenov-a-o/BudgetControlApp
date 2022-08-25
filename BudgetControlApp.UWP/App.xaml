@@ -2,13 +2,43 @@
     x:Class="BudgetControlApp.UWP.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:viewmodels ="using:BudgetControlApp.UWP.ViewModels"
+    xmlns:views ="using:BudgetControlApp.UWP.Views"
     xmlns:local="using:BudgetControlApp.UWP">
+
 
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Styles/Common.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+
+            <!--<ControlTemplate x:Key="Template1" TargetType="{x:Bind viewmodels:HomeViewModel}">-->
+                <!--<ContentPresenter>
+                    <ContentPresenter.Content>
+                        
+                    </ContentPresenter.Content>
+                    <views:HomeView/>
+                </ContentPresenter>
+                
+            </ControlTemplate>-->
+
+            <!--<ControlTemplate x:Key ="Template1">
+                <StackPanel>
+                    <views:HomeView></views:HomeView>
+                    <views:TransactionHistoryView></views:TransactionHistoryView>
+                </StackPanel>
+            </ControlTemplate>-->
+            
+            <!--<DataTemplate x:Key="Template1" x:DataType ="viewmodels:HomeViewModel">
+                <views:HomeView></views:HomeView>
+            </DataTemplate>-->
+
+            <!--<DataTemplate x:Key="Template1" x:DataType="{x:Bind viewmodels:HomeViewModel}">
+                <views:HomeView/>
+            </DataTemplate>-->
+            
+            
         </ResourceDictionary>
     </Application.Resources>
 

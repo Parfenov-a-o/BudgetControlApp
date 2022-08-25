@@ -7,13 +7,84 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     
     xmlns:controls ="using:BudgetControlApp.UWP.Controls"
+    xmlns:viewmodels ="using:BudgetControlApp.UWP.ViewModels"
+    xmlns:views ="using:BudgetControlApp.UWP.Views"
+    xmlns:convert ="using:BudgetControlApp.UWP.Converters"
     
+    xmlns:interact="using:Microsoft.Xaml.Interactivity"
+    xmlns:interactcore="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:nav="using:BudgetControlApp.UWP.State.Navigators"
     
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{StaticResource BrushPrimary1}">
+    <Page.Resources>
+        <convert:FromViewModelToViewConverter x:Key="viewModelConverter" />
+    </Page.Resources>
+    <Grid Background="{StaticResource BrushPrimary1}">
+        <!--<Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>-->
+        
+        <!--<controls:NavigationBar DataContext="{Binding Navigator}" Grid.Column="0"/>-->
+        <ContentControl x:Name="privet" Grid.Column="1" Content="{Binding Navigator.CurrentViewModel}" Visibility="Collapsed">
+            <!--<ContentControl.Template>
+                <ControlTemplate>
+                    <StackPanel>
+                        
+                        
+                        <views:HomeView></views:HomeView>
+                        <views:TransactionHistoryView></views:TransactionHistoryView>
+                    </StackPanel>
+                </ControlTemplate>
+            </ContentControl.Template>-->
+            
+                          
+                <!--<DataTemplate x:Name="Hi" x:DataType="" >
+                    <views:TransactionHistoryView/>
+                </DataTemplate>
+                <DataTemplate x:Name="Hi2" x:DataType="viewmodels:HomeViewModel" >
+                    <views:HomeView/>
+                </DataTemplate>-->
+                <!--<DataTemplate x:Key="hi" x:DataType="{x:Bind viewmodels:HomeViewModel}">
+                    <views:HomeView/>
+                </DataTemplate>-->
+            
+        </ContentControl>
 
-    <Grid>
-        <controls:NavigationBar/>
+
+        <NavigationView DataContext="{Binding Navigator}" BackgroundSizing="OuterBorderEdge" Height="Auto" PaneDisplayMode="Left" CompactModeThresholdWidth="400"  Grid.Row="1"  IsSettingsVisible="False" IsBackButtonVisible="Collapsed">
+            <NavigationView.MenuItems>
+                <NavigationViewItem Content="Домашняя страница">
+
+                    <interact:Interaction.Behaviors>
+                        <interactcore:EventTriggerBehavior EventName="Tapped">
+                            <interactcore:InvokeCommandAction
+                                        Command="{Binding UpdateCurrentViewModelCommand}"
+                                        CommandParameter="{x:Bind nav:ViewType.Home}"/>
+                        </interactcore:EventTriggerBehavior>
+                    </interact:Interaction.Behaviors>
+                </NavigationViewItem>
+                <NavigationViewItem Content="История транзакций">
+                    <interact:Interaction.Behaviors>
+                        <interactcore:EventTriggerBehavior EventName="Tapped">
+                            <interactcore:InvokeCommandAction
+                                        Command="{Binding UpdateCurrentViewModelCommand}"
+                                        CommandParameter="{x:Bind nav:ViewType.TransactionHistory}"/>
+                        </interactcore:EventTriggerBehavior>
+                    </interact:Interaction.Behaviors>
+                </NavigationViewItem>
+                <NavigationViewItem Content="Статистика"></NavigationViewItem>
+            </NavigationView.MenuItems>
+
+            <NavigationView.Content>
+                <ContentControl HorizontalAlignment="Center" Background="Transparent" Content="{Binding ElementName=privet,Path=Content,Converter={StaticResource viewModelConverter}}"></ContentControl>
+            </NavigationView.Content>
+
+        </NavigationView>
+
+
+
 
     </Grid>
 </Page>

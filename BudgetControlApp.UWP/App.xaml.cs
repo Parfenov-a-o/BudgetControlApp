@@ -1,6 +1,7 @@
 ﻿using BudgetControlApp.Domain.Models;
 using BudgetControlApp.Domain.Services;
 using BudgetControlApp.UWP.Services;
+using BudgetControlApp.UWP.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -35,6 +36,10 @@ namespace BudgetControlApp.UWP
             this.InitializeComponent();
             this.Suspending += OnSuspending;
 
+            //Page page = new Page();
+            //page.DataContext = new MainViewModel();
+            //page.
+
             //IDataService<Account> accountService = new GenericDataService<Account>(new BudgetControlAppDbContextFactory());
             //accountService.GetAll().Result.Count();
             //accountService.Create(new Account { Name = "user", Balance = 200 });
@@ -42,6 +47,7 @@ namespace BudgetControlApp.UWP
 
         }
 
+        
         /// <summary>
         /// Вызывается при обычном запуске приложения пользователем. Будут использоваться другие точки входа,
         /// например, если приложение запускается для открытия конкретного файла.
@@ -51,6 +57,7 @@ namespace BudgetControlApp.UWP
         {
             Frame rootFrame = Window.Current.Content as Frame;
 
+            
             // Не повторяйте инициализацию приложения, если в окне уже имеется содержимое,
             // только обеспечьте активность окна
             if (rootFrame == null)
@@ -65,8 +72,12 @@ namespace BudgetControlApp.UWP
                     //TODO: Загрузить состояние из ранее приостановленного приложения
                 }
 
+                rootFrame.DataContext = new MainViewModel();
+
                 // Размещение фрейма в текущем окне
                 Window.Current.Content = rootFrame;
+                
+
             }
 
             if (e.PrelaunchActivated == false)
@@ -78,6 +89,9 @@ namespace BudgetControlApp.UWP
                     // навигации
                     rootFrame.Navigate(typeof(MainPage), e.Arguments);
                 }
+
+                rootFrame.DataContext = new MainViewModel();
+
                 // Обеспечение активности текущего окна
                 Window.Current.Activate();
             }
