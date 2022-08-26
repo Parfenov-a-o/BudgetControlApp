@@ -53,9 +53,11 @@
         </ContentControl>
 
 
+
+        
         <NavigationView DataContext="{Binding Navigator}" BackgroundSizing="OuterBorderEdge" Height="Auto" PaneDisplayMode="Left" CompactModeThresholdWidth="400"  Grid.Row="1"  IsSettingsVisible="False" IsBackButtonVisible="Collapsed">
             <NavigationView.MenuItems>
-                <NavigationViewItem Content="Домашняя страница">
+                <NavigationViewItem Content="Домашняя страница" Icon="Home">
 
                     <interact:Interaction.Behaviors>
                         <interactcore:EventTriggerBehavior EventName="Tapped">
@@ -66,6 +68,9 @@
                     </interact:Interaction.Behaviors>
                 </NavigationViewItem>
                 <NavigationViewItem Content="История транзакций">
+                    <NavigationViewItem.Icon>
+                        <BitmapIcon UriSource="Assets/NavigationBarIcons/TransactionHistoryIcon.png"></BitmapIcon>
+                    </NavigationViewItem.Icon>
                     <interact:Interaction.Behaviors>
                         <interactcore:EventTriggerBehavior EventName="Tapped">
                             <interactcore:InvokeCommandAction
@@ -74,12 +79,20 @@
                         </interactcore:EventTriggerBehavior>
                     </interact:Interaction.Behaviors>
                 </NavigationViewItem>
-                <NavigationViewItem Content="Статистика"></NavigationViewItem>
+                <NavigationViewItem Content="Статистика">
+                    <NavigationViewItem.Icon>
+                        <BitmapIcon UriSource="Assets/NavigationBarIcons/StatisticsIcon.png"></BitmapIcon>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
             </NavigationView.MenuItems>
 
+
             <NavigationView.Content>
-                <ContentControl HorizontalAlignment="Center" Background="Transparent" Content="{Binding ElementName=privet,Path=Content,Converter={StaticResource viewModelConverter}}"></ContentControl>
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                    <ContentControl HorizontalAlignment="Center" Background="Transparent" Content="{Binding ElementName=privet,Path=Content,Converter={StaticResource viewModelConverter}}"></ContentControl>
+                </ScrollViewer>
             </NavigationView.Content>
+
 
         </NavigationView>
 

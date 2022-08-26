@@ -10,6 +10,6 @@ namespace BudgetControlApp.Domain.Models
     {
         public string Name { get; set; }
         public double Balance { get; set; }
-        public IEnumerable<Transaction> Transactions { get; set; }
+        public ICollection<Transaction> Transactions { get; set; }
     }
 }

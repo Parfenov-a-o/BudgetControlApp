@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace BudgetControlApp.Domain.Models
 {
-    public class IncomeCategory:TransactionCategory
+    public abstract class TransactionCategory : DomainObject
     {
-        public string Name { get; set; }
+
     }
 }

@@ -11,18 +11,19 @@ using System.Threading.Tasks;
 
 namespace BudgetControlApp.UWP.Services
 {
-    public class GenericDataService<T> : IDataService<T> where T : DomainObject
+    public class AccountDataService : IDataService<Account>
     {
         private readonly BudgetControlAppDbContextFactory _contextFactory;
-        private readonly NonQueryDataService<T> _nonQueryDataService;
+        private readonly NonQueryDataService<Account> _nonQueryDataService;
 
-        public GenericDataService(BudgetControlAppDbContextFactory contextFactory)
+        public AccountDataService(BudgetControlAppDbContextFactory contextFactory)
         {
             _contextFactory = contextFactory;
-            _nonQueryDataService = new NonQueryDataService<T>(contextFactory);
+            _nonQueryDataService = new NonQueryDataService<Account>(contextFactory);
         }
 
-        public async Task<T> Create(T entity)
+
+        public async Task<Account> Create(Account entity)
         {
             return await _nonQueryDataService.Create(entity);
 
@@ -34,25 +35,25 @@ namespace BudgetControlApp.UWP.Services
             return await _nonQueryDataService.Delete(id);
         }
 
-        public async Task<T> Get(int id)
+        public async Task<Account> Get(int id)
         {
             using (var context = _contextFactory.CreateDbContext())
             {
-                T entity = await context.Set<T>().FirstOrDefaultAsync(e => e.Id == id);
+                Account entity = await context.Accounts.Include(a=>a.Transactions).FirstOrDefaultAsync(e => e.Id == id);
                 return entity;
             }
         }
 
-        public async Task<IEnumerable<T>> GetAll()
+        public async Task<IEnumerable<Account>> GetAll()
         {
             using (var context = _contextFactory.CreateDbContext())
             {
-                IEnumerable<T> entities = await context.Set<T>().ToListAsync();
+                IEnumerable<Account> entities = await context.Accounts.Include(a => a.Transactions).ToListAsync();
                 return entities;
             }
         }
 
-        public async Task<T> Update(int id, T entity)
+        public async Task<Account> Update(int id, Account entity)
         {
             return await _nonQueryDataService.Update(id, entity);
         }

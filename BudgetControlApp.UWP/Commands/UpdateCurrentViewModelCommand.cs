@@ -15,9 +15,9 @@ namespace BudgetControlApp.UWP.Commands
         public event EventHandler CanExecuteChanged;
 
         private readonly INavigator _navigator;
-        private readonly IBudgetControlAppViewModelAbstractFactory _viewModelFactory;
+        private readonly IRootBudgetControlAppViewModelFactory _viewModelFactory;
 
-        public UpdateCurrentViewModelCommand(INavigator navigator, IBudgetControlAppViewModelAbstractFactory viewModelFactory)
+        public UpdateCurrentViewModelCommand(INavigator navigator, IRootBudgetControlAppViewModelFactory viewModelFactory)
         {
             _navigator = navigator;
             _viewModelFactory = viewModelFactory;

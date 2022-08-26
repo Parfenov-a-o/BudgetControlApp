@@ -28,7 +28,7 @@ namespace BudgetControlApp.UWP.State.Navigators
 
         public ICommand UpdateCurrentViewModelCommand { get; set; }
 
-        public Navigator(IBudgetControlAppViewModelAbstractFactory viewModelFactory)
+        public Navigator(IRootBudgetControlAppViewModelFactory viewModelFactory)
         {
             UpdateCurrentViewModelCommand = new UpdateCurrentViewModelCommand(this, viewModelFactory);
         }

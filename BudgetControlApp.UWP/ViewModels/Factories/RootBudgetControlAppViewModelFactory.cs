@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 
 namespace BudgetControlApp.UWP.ViewModels.Factories
 {
-    public class BudgetControlAppViewModelAbstractFactory : IBudgetControlAppViewModelAbstractFactory
+    public class RootBudgetControlAppViewModelFactory : IRootBudgetControlAppViewModelFactory
     {
         private readonly IBudgetControlAppViewModelFactory<HomeViewModel> _homeViewModelFactory;
         private readonly IBudgetControlAppViewModelFactory<TransactionHistoryViewModel> _transactionHistoryViewModelFactory;
+        
 
-        public BudgetControlAppViewModelAbstractFactory(IBudgetControlAppViewModelFactory<HomeViewModel> homeViewModelFactory, 
+        public RootBudgetControlAppViewModelFactory(IBudgetControlAppViewModelFactory<HomeViewModel> homeViewModelFactory, 
             IBudgetControlAppViewModelFactory<TransactionHistoryViewModel> transactionHistoryViewModelFactory)
         {
             _homeViewModelFactory = homeViewModelFactory;

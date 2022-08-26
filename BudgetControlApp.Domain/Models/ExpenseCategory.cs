@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BudgetControlApp.Domain.Models
 {
-    public class ExpenseCategory:DomainObject
+    public class ExpenseCategory : TransactionCategory
     {
         public string Name { get; set; }
     }

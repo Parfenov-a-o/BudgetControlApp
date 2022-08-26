@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BudgetControlApp.UWP.ViewModels.Factories
 {
-    public interface IBudgetControlAppViewModelAbstractFactory
+    public interface IRootBudgetControlAppViewModelFactory
     {
         ViewModelBase CreateViewModel(ViewType viewType);
     }

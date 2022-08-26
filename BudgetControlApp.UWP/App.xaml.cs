@@ -1,5 +1,6 @@
 ﻿using BudgetControlApp.Domain.Models;
 using BudgetControlApp.Domain.Services;
+using BudgetControlApp.Domain.Services.TransactionServices;
 using BudgetControlApp.UWP.Services;
 using BudgetControlApp.UWP.State.Navigators;
 using BudgetControlApp.UWP.ViewModels;
@@ -48,20 +49,20 @@ namespace BudgetControlApp.UWP
             //accountService.Create(new Account { Name = "user", Balance = 200 });
             //var item = accountService.GetAll().Result.Count();
 
+     
 
-            IServiceProvider serviceProvider = CreateServiceProvider();
-
-            IDataService<Account> accountDataService = serviceProvider.GetService<IDataService<Account>>();
+            
 
         }
 
+        
         
         /// <summary>
         /// Вызывается при обычном запуске приложения пользователем. Будут использоваться другие точки входа,
         /// например, если приложение запускается для открытия конкретного файла.
         /// </summary>
         /// <param name="e">Сведения о запросе и обработке запуска.</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected async override void OnLaunched(LaunchActivatedEventArgs e)
         {
             Frame rootFrame = Window.Current.Content as Frame;
 
@@ -104,6 +105,30 @@ namespace BudgetControlApp.UWP
                 // Обеспечение активности текущего окна
                 Window.Current.Activate();
             }
+
+            //Тест2
+            //IDataService<ExpenseCategory> expenseCategoryService = serviceProvider.GetService<IDataService<ExpenseCategory>>();
+            //IDataService<IncomeCategory> incomeCategoryService = serviceProvider.GetService<IDataService<IncomeCategory>>();
+
+            //await expenseCategoryService.Create(new ExpenseCategory() { Name = "Развлечения" });
+            //await expenseCategoryService.Create(new ExpenseCategory() { Name = "Еда" });
+            //await expenseCategoryService.Create(new ExpenseCategory() { Name = "Транспорт" });
+            //await expenseCategoryService.Create(new ExpenseCategory() { Name = "Налоги" });
+            //await expenseCategoryService.Create(new ExpenseCategory() { Name = "Страхование" });
+
+            //await incomeCategoryService.Create(new IncomeCategory() { Name = "Заработная плата" });
+            //await incomeCategoryService.Create(new IncomeCategory() { Name = "Возврат долга" });
+            //await incomeCategoryService.Create(new IncomeCategory() { Name = "Дивиденды" });
+            //await incomeCategoryService.Create(new IncomeCategory() { Name = "Стипендия" });
+
+            //Тест
+            //IDataService<Account> accountDataService = serviceProvider.GetService<IDataService<Account>>();
+
+            //IAddIncomeService addIncomeService = new AddIncomeService(accountDataService);
+
+            //Account account = await accountDataService.Get(1);
+
+            //await addIncomeService.AddIncome(account,100,1,"Привет");
         }
 
         /// <summary>
@@ -136,16 +161,20 @@ namespace BudgetControlApp.UWP
             IServiceCollection services = new ServiceCollection();
 
             services.AddSingleton<BudgetControlAppDbContextFactory>();
-            services.AddSingleton<IDataService<Account>, GenericDataService<Account>>();
+            services.AddSingleton<IDataService<Account>, AccountDataService>();
+            services.AddSingleton<IDataService<IncomeCategory>, GenericDataService<IncomeCategory>>();
+            services.AddSingleton<IDataService<ExpenseCategory>, GenericDataService<ExpenseCategory>>();
+            services.AddSingleton<IAddIncomeService, AddIncomeService>();
+            services.AddSingleton<IAddExpenseService, AddExpenseService>();
 
-            services.AddSingleton<IBudgetControlAppViewModelAbstractFactory, BudgetControlAppViewModelAbstractFactory>();
+            services.AddSingleton<IRootBudgetControlAppViewModelFactory, RootBudgetControlAppViewModelFactory>();
             services.AddSingleton<IBudgetControlAppViewModelFactory<HomeViewModel>, HomeViewModelFactory>();
             services.AddSingleton<IBudgetControlAppViewModelFactory<TransactionHistoryViewModel>, TransactionHistoryViewModelFactory>();
 
             services.AddScoped<INavigator, Navigator>();
             services.AddScoped<MainViewModel>();
 
-            services.AddScoped<MainPage>(s => new MainPage(s.GetRequiredService<MainViewModel>()));
+            //services.AddScoped<MainPage>(s => new MainPage(s.GetRequiredService<MainViewModel>()));
 
             return services.BuildServiceProvider();
 
