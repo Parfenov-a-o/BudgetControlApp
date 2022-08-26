@@ -1,6 +1,7 @@
 ﻿using BudgetControlApp.UWP.Commands;
 using BudgetControlApp.UWP.Models;
 using BudgetControlApp.UWP.ViewModels;
+using BudgetControlApp.UWP.ViewModels.Factories;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,7 +26,12 @@ namespace BudgetControlApp.UWP.State.Navigators
         
         }
 
-        public ICommand UpdateCurrentViewModelCommand => new UpdateCurrentViewModelCommand(this);
+        public ICommand UpdateCurrentViewModelCommand { get; set; }
+
+        public Navigator(IBudgetControlAppViewModelAbstractFactory viewModelFactory)
+        {
+            UpdateCurrentViewModelCommand = new UpdateCurrentViewModelCommand(this, viewModelFactory);
+        }
 
     }
 }

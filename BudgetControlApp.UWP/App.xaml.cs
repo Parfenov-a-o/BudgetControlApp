@@ -1,8 +1,11 @@
 ﻿using BudgetControlApp.Domain.Models;
 using BudgetControlApp.Domain.Services;
 using BudgetControlApp.UWP.Services;
+using BudgetControlApp.UWP.State.Navigators;
 using BudgetControlApp.UWP.ViewModels;
+using BudgetControlApp.UWP.ViewModels.Factories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -45,6 +48,11 @@ namespace BudgetControlApp.UWP
             //accountService.Create(new Account { Name = "user", Balance = 200 });
             //var item = accountService.GetAll().Result.Count();
 
+
+            IServiceProvider serviceProvider = CreateServiceProvider();
+
+            IDataService<Account> accountDataService = serviceProvider.GetService<IDataService<Account>>();
+
         }
 
         
@@ -57,7 +65,8 @@ namespace BudgetControlApp.UWP
         {
             Frame rootFrame = Window.Current.Content as Frame;
 
-            
+            IServiceProvider serviceProvider = CreateServiceProvider();
+
             // Не повторяйте инициализацию приложения, если в окне уже имеется содержимое,
             // только обеспечьте активность окна
             if (rootFrame == null)
@@ -72,7 +81,7 @@ namespace BudgetControlApp.UWP
                     //TODO: Загрузить состояние из ранее приостановленного приложения
                 }
 
-                rootFrame.DataContext = new MainViewModel();
+                rootFrame.DataContext = serviceProvider.GetRequiredService<MainViewModel>();
 
                 // Размещение фрейма в текущем окне
                 Window.Current.Content = rootFrame;
@@ -90,7 +99,7 @@ namespace BudgetControlApp.UWP
                     rootFrame.Navigate(typeof(MainPage), e.Arguments);
                 }
 
-                rootFrame.DataContext = new MainViewModel();
+                rootFrame.DataContext = serviceProvider.GetRequiredService<MainViewModel>();
 
                 // Обеспечение активности текущего окна
                 Window.Current.Activate();
@@ -119,6 +128,28 @@ namespace BudgetControlApp.UWP
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Сохранить состояние приложения и остановить все фоновые операции
             deferral.Complete();
+        }
+
+
+        private IServiceProvider CreateServiceProvider()
+        {
+            IServiceCollection services = new ServiceCollection();
+
+            services.AddSingleton<BudgetControlAppDbContextFactory>();
+            services.AddSingleton<IDataService<Account>, GenericDataService<Account>>();
+
+            services.AddSingleton<IBudgetControlAppViewModelAbstractFactory, BudgetControlAppViewModelAbstractFactory>();
+            services.AddSingleton<IBudgetControlAppViewModelFactory<HomeViewModel>, HomeViewModelFactory>();
+            services.AddSingleton<IBudgetControlAppViewModelFactory<TransactionHistoryViewModel>, TransactionHistoryViewModelFactory>();
+
+            services.AddScoped<INavigator, Navigator>();
+            services.AddScoped<MainViewModel>();
+
+            services.AddScoped<MainPage>(s => new MainPage(s.GetRequiredService<MainViewModel>()));
+
+            return services.BuildServiceProvider();
+
+            
         }
     }
 }

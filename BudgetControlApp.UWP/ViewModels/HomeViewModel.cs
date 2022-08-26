@@ -28,7 +28,7 @@ namespace BudgetControlApp.UWP.ViewModels
         {
 
 
-            Amount = GetAmount().Result;
+            //Amount = GetAmount().Result;
 
             //accountService.GetAll().result.count();
             //accountService.create(new account { name = "user", balance = 200 });

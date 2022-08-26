@@ -22,9 +22,11 @@ namespace BudgetControlApp.UWP
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        public MainPage()
+        public MainPage(object dataContext)
         {
             this.InitializeComponent();
+
+            DataContext = dataContext;
         }
     }
 }

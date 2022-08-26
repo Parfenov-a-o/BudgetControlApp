@@ -1,5 +1,6 @@
 ﻿using BudgetControlApp.UWP.State.Navigators;
 using BudgetControlApp.UWP.ViewModels;
+using BudgetControlApp.UWP.ViewModels.Factories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,11 +14,13 @@ namespace BudgetControlApp.UWP.Commands
     {
         public event EventHandler CanExecuteChanged;
 
-        private INavigator _navigator;
+        private readonly INavigator _navigator;
+        private readonly IBudgetControlAppViewModelAbstractFactory _viewModelFactory;
 
-        public UpdateCurrentViewModelCommand(INavigator navigator)
+        public UpdateCurrentViewModelCommand(INavigator navigator, IBudgetControlAppViewModelAbstractFactory viewModelFactory)
         {
             _navigator = navigator;
+            _viewModelFactory = viewModelFactory;
         }
 
         public bool CanExecute(object parameter)
@@ -29,17 +32,7 @@ namespace BudgetControlApp.UWP.Commands
         {
             if(parameter is ViewType viewType)
             {
-                switch (viewType)
-                {
-                    case ViewType.Home:
-                        _navigator.CurrentViewModel = new HomeViewModel();
-                        break;
-                    case ViewType.TransactionHistory:
-                        _navigator.CurrentViewModel = new TransactionHistoryViewModel();
-                        break;
-                    default:
-                        break;
-                }
+                _navigator.CurrentViewModel = _viewModelFactory.CreateViewModel(viewType);
             }
         }
     }
