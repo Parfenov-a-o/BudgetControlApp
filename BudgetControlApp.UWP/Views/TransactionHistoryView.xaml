@@ -22,11 +22,6 @@
                                         />
             </interactcore:EventTriggerBehavior>
 
-            <!--<interactcore:EventTriggerBehavior EventName="Loaded">
-                <interactcore:InvokeCommandAction
-                                        Command="{Binding GetCurrentAccountBalanceCommand,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                                        />
-            </interactcore:EventTriggerBehavior>-->
         </interact:Interaction.Behaviors>
 
         <Grid.RowDefinitions>

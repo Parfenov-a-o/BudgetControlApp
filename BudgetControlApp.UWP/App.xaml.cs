@@ -40,19 +40,6 @@ namespace BudgetControlApp.UWP
             this.InitializeComponent();
             this.Suspending += OnSuspending;
 
-            //Page page = new Page();
-            //page.DataContext = new MainViewModel();
-            //page.
-
-            //IDataService<Account> accountService = new GenericDataService<Account>(new BudgetControlAppDbContextFactory());
-            //accountService.GetAll().Result.Count();
-            //accountService.Create(new Account { Name = "user", Balance = 200 });
-            //var item = accountService.GetAll().Result.Count();
-
-     
-
-            
-
         }
 
         
@@ -110,12 +97,12 @@ namespace BudgetControlApp.UWP
 
             IDataService<Account> accountDataService = serviceProvider.GetService<IDataService<Account>>();
 
-            //bool result = await accountDataService.Delete(1);
 
             if(await accountDataService.Get(1) == null)
             {
                 Account currentAccount = new Account() 
                 { 
+                    Id = 1,
                     Balance = 500, 
                     Name = "CurrentAccaunt", 
                     Transactions = new List<Transaction>()
@@ -131,37 +118,16 @@ namespace BudgetControlApp.UWP
                 await expenseCategoryService.Create(new ExpenseCategory() { Name = "Транспорт" });
                 await expenseCategoryService.Create(new ExpenseCategory() { Name = "Налоги" });
                 await expenseCategoryService.Create(new ExpenseCategory() { Name = "Страхование" });
+                await expenseCategoryService.Create(new ExpenseCategory() { Name = "Прочее" });
 
                 await incomeCategoryService.Create(new IncomeCategory() { Name = "Заработная плата" });
                 await incomeCategoryService.Create(new IncomeCategory() { Name = "Возврат долга" });
                 await incomeCategoryService.Create(new IncomeCategory() { Name = "Дивиденды" });
                 await incomeCategoryService.Create(new IncomeCategory() { Name = "Стипендия" });
+                await incomeCategoryService.Create(new IncomeCategory() { Name = "Прочее" });
             }
 
 
-            //Тест2
-            //IDataService<ExpenseCategory> expenseCategoryService = serviceProvider.GetService<IDataService<ExpenseCategory>>();
-            //IDataService<IncomeCategory> incomeCategoryService = serviceProvider.GetService<IDataService<IncomeCategory>>();
-
-            //await expenseCategoryService.Create(new ExpenseCategory() { Name = "Развлечения" });
-            //await expenseCategoryService.Create(new ExpenseCategory() { Name = "Еда" });
-            //await expenseCategoryService.Create(new ExpenseCategory() { Name = "Транспорт" });
-            //await expenseCategoryService.Create(new ExpenseCategory() { Name = "Налоги" });
-            //await expenseCategoryService.Create(new ExpenseCategory() { Name = "Страхование" });
-
-            //await incomeCategoryService.Create(new IncomeCategory() { Name = "Заработная плата" });
-            //await incomeCategoryService.Create(new IncomeCategory() { Name = "Возврат долга" });
-            //await incomeCategoryService.Create(new IncomeCategory() { Name = "Дивиденды" });
-            //await incomeCategoryService.Create(new IncomeCategory() { Name = "Стипендия" });
-
-            //Тест
-            //IDataService<Account> accountDataService = serviceProvider.GetService<IDataService<Account>>();
-
-            //IAddIncomeService addIncomeService = new AddIncomeService(accountDataService);
-
-            //Account account = await accountDataService.Get(1);
-
-            //await addIncomeService.AddIncome(account,100,1,"Привет");
         }
 
         /// <summary>
@@ -209,7 +175,6 @@ namespace BudgetControlApp.UWP
             services.AddScoped<INavigator, Navigator>();
             services.AddScoped<MainViewModel>();
 
-            //services.AddScoped<MainPage>(s => new MainPage(s.GetRequiredService<MainViewModel>()));
 
             return services.BuildServiceProvider();
 

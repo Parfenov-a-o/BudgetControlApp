@@ -12,34 +12,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Styles/Common.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-
-            <!--<ControlTemplate x:Key="Template1" TargetType="{x:Bind viewmodels:HomeViewModel}">-->
-                <!--<ContentPresenter>
-                    <ContentPresenter.Content>
-                        
-                    </ContentPresenter.Content>
-                    <views:HomeView/>
-                </ContentPresenter>
-                
-            </ControlTemplate>-->
-
-            <!--<ControlTemplate x:Key ="Template1">
-                <StackPanel>
-                    <views:HomeView></views:HomeView>
-                    <views:TransactionHistoryView></views:TransactionHistoryView>
-                </StackPanel>
-            </ControlTemplate>-->
-            
-            <!--<DataTemplate x:Key="Template1" x:DataType ="viewmodels:HomeViewModel">
-                <views:HomeView></views:HomeView>
-            </DataTemplate>-->
-
-            <!--<DataTemplate x:Key="Template1" x:DataType="{x:Bind viewmodels:HomeViewModel}">
-                <views:HomeView/>
-            </DataTemplate>-->
-            
-            
-        </ResourceDictionary>
+       </ResourceDictionary>
     </Application.Resources>
 
 </Application>

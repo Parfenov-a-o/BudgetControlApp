@@ -109,6 +109,19 @@ namespace BudgetControlApp.UWP.ViewModels
             }
         }
 
+        public MessageViewModel ErrorMessageViewModel { get; }
+        public string ErrorMessage
+        {
+            set => ErrorMessageViewModel.Message = value;
+        }
+        public MessageViewModel StatusMessageViewModel { get; }
+
+        public string StatusMessage
+        {
+            set => StatusMessageViewModel.Message = value;
+        }
+
+
 
         public ICommand AddTransactionCommand { get;}
         public ICommand GetTransactionCategoriesCommand { get; }
@@ -118,6 +131,10 @@ namespace BudgetControlApp.UWP.ViewModels
             IDataService<ExpenseCategory> expenseCategoryDataService,IDataService<IncomeCategory> incomeCategoryDataService,
             IDataService<Account> accountDataService)
         {
+            Amount = 0;
+
+            ErrorMessageViewModel = new MessageViewModel();
+            StatusMessageViewModel = new MessageViewModel();
 
             GetTransactionCategoriesCommand = new GetTransactionCategoriesCommand(this, expenseCategoryDataService, incomeCategoryDataService);
             AddTransactionCommand = new AddTransactionCommand(this, addIncomeService, addExpenseService, accountDataService);

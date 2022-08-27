@@ -8,21 +8,22 @@
     
     xmlns:interact="using:Microsoft.Xaml.Interactivity"
     xmlns:interactcore="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:convert ="using:BudgetControlApp.UWP.Converters"
     
     mc:Ignorable="d"
-    d:DesignHeight="300"
-    d:DesignWidth="400">
+    d:DesignHeight="800"
+    d:DesignWidth="800">
+    <UserControl.Resources>
+        <convert:BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
+    </UserControl.Resources>
 
-    <Grid Margin="0 10">
+    <Grid Margin="0 10" Width="700">
 
         <interact:Interaction.Behaviors>
             <interactcore:EventTriggerBehavior EventName="Loading">
                 <interactcore:InvokeCommandAction
                                         Command="{Binding GetTransactionCategoriesCommand,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                         />
-                <!--<interactcore:InvokeCommandAction
-                                        Command="{Binding GetCurrentAccountBalanceCommand,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                                        />-->
             </interactcore:EventTriggerBehavior>
 
             <interactcore:EventTriggerBehavior EventName="Loaded">
@@ -39,7 +40,7 @@
         
         <TextBlock Grid.Row="0" FontSize="26" FontWeight="Bold" TextAlignment="Center" Text="Домашняя страница" HorizontalAlignment="Center"/>
 
-        <Grid Grid.Row="1" >
+        <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
@@ -47,8 +48,8 @@
 
             <Grid Grid.Row="0" HorizontalAlignment="Right">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0" Foreground="#02f58c" FontWeight="Bold" Padding="20" FontSize="18" Text="Баланс:"></TextBlock>
@@ -62,16 +63,17 @@
                     <RowDefinition Height="auto"></RowDefinition>
                     <RowDefinition Height="auto"></RowDefinition>
                     <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <Grid Grid.Row="0">
+                <Grid Grid.Row="0" Margin="0 20 0 0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Column="0" Text="Вид операции:"/>
-                    <ComboBox PlaceholderText="Выберите категорию" SelectedItem="{Binding SelectedTransactionType,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding TransactionTypes}" Grid.Column="1" Width="200">
+                    <ComboBox PlaceholderText="Выберите категорию" SelectedItem="{Binding SelectedTransactionType,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding TransactionTypes}" Grid.Column="1">
                         <interact:Interaction.Behaviors>
                             <interactcore:EventTriggerBehavior EventName="SelectionChanged">
                                 <interactcore:InvokeCommandAction
@@ -83,17 +85,22 @@
 
                 </Grid>
 
-                <Grid Grid.Row="1">
+                <Grid Grid.Row="1" Margin="0 20 0 0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Column="0" Text="Сумма операции:"/>
-                    <TextBox Text="{Binding Amount,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Width="200"/>
+
+                    <TextBox Text="{Binding Amount,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            
+                                            Grid.Column="1"></TextBox>
+
+
                 </Grid>
 
-                <Grid Grid.Row="2">
+                <Grid Grid.Row="2" Margin="0 20 0 0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
@@ -102,22 +109,37 @@
                     <TextBlock Grid.Column="0" Text="Категория:"/>
                     <ComboBox PlaceholderText="Выберите категорию" ItemsSource="{Binding TransactionCategories}" 
                               SelectedItem="{Binding SelectedTransactionCategory,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                              DisplayMemberPath="Name" Grid.Column="1" Width="200" />
+                              DisplayMemberPath="Name" Grid.Column="1"
+                              />
                 </Grid>
 
 
 
-                <Grid Grid.Row="3">
+                <Grid Grid.Row="3" Margin="0 20 0 0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Column="0" Text="Комментарий:"/>
-                    <TextBox Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Width="200"/>
+                    <TextBox TextWrapping="Wrap" Height="150" Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Width="auto"/>
                 </Grid>
 
-                <Button Command="{Binding AddTransactionCommand}" Grid.Row="4" Content="Добавить транзакцию" HorizontalAlignment="Right"></Button>
+                <Button Margin="0 20 0 0" Command="{Binding AddTransactionCommand}" Grid.Row="4" Padding="20 5" Content="Добавить" HorizontalAlignment="Right"></Button>
+                
+                <TextBlock Grid.Row="5" 
+                           Text="{Binding Message}"
+                           DataContext="{Binding ErrorMessageViewModel}"
+                           Visibility="{Binding HasMessage,Converter={StaticResource booleanToVisibilityConverter}}" 
+                           Foreground="DarkRed" HorizontalAlignment="Center"></TextBlock>
+
+                <TextBlock Grid.Row="5" 
+                           Text="{Binding Message}"
+                           DataContext="{Binding StatusMessageViewModel}"
+                           Visibility="{Binding HasMessage,Converter={StaticResource booleanToVisibilityConverter}}" 
+                           Foreground="DarkGreen" HorizontalAlignment="Center"></TextBlock>
+
+
             </Grid>
         </Grid>
     </Grid>

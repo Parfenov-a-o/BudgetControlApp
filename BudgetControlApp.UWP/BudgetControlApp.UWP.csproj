@@ -126,6 +126,7 @@
     <Compile Include="Commands\GetCurrentAccountBalanceCommand.cs" />
     <Compile Include="Commands\GetTransactionCategoriesCommand.cs" />
     <Compile Include="Commands\UpdateCurrentViewModelCommand.cs" />
+    <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\FromViewModelToViewConverter.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -154,6 +155,7 @@
     <Compile Include="ViewModels\Factories\TransactionHistoryViewModelFactory.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\MessageViewModel.cs" />
     <Compile Include="ViewModels\TransactionHistoryViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\HomeView.xaml.cs">

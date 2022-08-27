@@ -26,26 +26,5 @@ namespace BudgetControlApp.UWP
             Database.EnsureCreated();
         }
 
-        //public BudgetControlAppDbContext()
-        //{
-
-        //    var path = Windows.Storage.ApplicationData.Current.RoamingFolder.Path;
-
-        //    DbPath = System.IO.Path.Combine(path, "BudgetControlAppDB.db");
-
-        //    //Database.EnsureCreated();
-        //}
-
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    //var path = Windows.Storage.ApplicationData.Current.SharedLocalFolder.Path;
-
-        //    //var DbPath = System.IO.Path.Combine(path, "BudgetControlAppDB.db");
-
-        //    optionsBuilder.UseSqlite($"Data Source=BudgetControlAppDB.db");
-
-        //    base.OnConfiguring(optionsBuilder);
-        //}
-
     }
 }

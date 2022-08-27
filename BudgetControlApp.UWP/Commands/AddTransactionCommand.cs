@@ -1,4 +1,5 @@
-﻿using BudgetControlApp.Domain.Models;
+﻿using BudgetControlApp.Domain.Exceptions;
+using BudgetControlApp.Domain.Models;
 using BudgetControlApp.Domain.Services;
 using BudgetControlApp.Domain.Services.TransactionServices;
 using BudgetControlApp.UWP.ViewModels;
@@ -39,6 +40,22 @@ namespace BudgetControlApp.UWP.Commands
 
         public async void Execute(object parameter)
         {
+           
+            _homeViewModel.StatusMessage = String.Empty;
+            _homeViewModel.ErrorMessage = String.Empty;
+            
+            if(_homeViewModel.Amount <= 0)
+            {
+                _homeViewModel.ErrorMessage = "Сумма должна быть положительной!";
+                return;
+            }
+
+            if(_homeViewModel.SelectedTransactionCategory == null)
+            {
+                _homeViewModel.ErrorMessage = "Вы не выбрали категорию транзакции!";
+                return;
+            }
+            
             try
             {
                 Account currentAccount = await _accountDataService.Get(1);
@@ -49,6 +66,11 @@ namespace BudgetControlApp.UWP.Commands
                         _homeViewModel.Amount,_homeViewModel.CategoryId, 
                         _homeViewModel.Comment);
                     _homeViewModel.Balance += _homeViewModel.Amount;
+                    
+
+                    _homeViewModel.StatusMessage =  $"Доходы в размере {_homeViewModel.Amount} рублей успешно добавлены!";
+
+                    _homeViewModel.Amount = 0;
                 }
                 if (_homeViewModel.SelectedTransactionType == "Расходы")
                 {
@@ -57,11 +79,20 @@ namespace BudgetControlApp.UWP.Commands
                         _homeViewModel.Comment);
                     _homeViewModel.Balance -= _homeViewModel.Amount;
                     
+
+                    _homeViewModel.StatusMessage = $"Расходы в размере {_homeViewModel.Amount} рублей успешно добавлены!";
+
+                    _homeViewModel.Amount = 0;
+
                 }
+            }
+            catch (NotEnoughMoneyException)
+            {
+                _homeViewModel.ErrorMessage = "У вас недостаточно средств на балансе!";
             }
             catch(Exception ex)
             {
-                                
+                _homeViewModel.ErrorMessage = "Ошибка при добавлении транзакции!";            
             }
         }
     }

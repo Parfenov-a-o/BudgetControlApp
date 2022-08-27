@@ -10,6 +10,7 @@
     xmlns:viewmodels ="using:BudgetControlApp.UWP.ViewModels"
     xmlns:views ="using:BudgetControlApp.UWP.Views"
     xmlns:convert ="using:BudgetControlApp.UWP.Converters"
+   
     
     xmlns:interact="using:Microsoft.Xaml.Interactivity"
     xmlns:interactcore="using:Microsoft.Xaml.Interactions.Core"
@@ -21,42 +22,15 @@
         <convert:FromViewModelToViewConverter x:Key="viewModelConverter" />
     </Page.Resources>
     <Grid Background="{StaticResource BrushPrimary1}">
-        <!--<Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>-->
-        
-        <!--<controls:NavigationBar DataContext="{Binding Navigator}" Grid.Column="0"/>-->
-        <ContentControl x:Name="privet" Grid.Column="1" Content="{Binding Navigator.CurrentViewModel}" Visibility="Collapsed">
-            <!--<ContentControl.Template>
-                <ControlTemplate>
-                    <StackPanel>
-                        
-                        
-                        <views:HomeView></views:HomeView>
-                        <views:TransactionHistoryView></views:TransactionHistoryView>
-                    </StackPanel>
-                </ControlTemplate>
-            </ContentControl.Template>-->
-            
-                          
-                <!--<DataTemplate x:Name="Hi" x:DataType="" >
-                    <views:TransactionHistoryView/>
-                </DataTemplate>
-                <DataTemplate x:Name="Hi2" x:DataType="viewmodels:HomeViewModel" >
-                    <views:HomeView/>
-                </DataTemplate>-->
-                <!--<DataTemplate x:Key="hi" x:DataType="{x:Bind viewmodels:HomeViewModel}">
-                    <views:HomeView/>
-                </DataTemplate>-->
-            
+        <ContentControl x:Name="additionalControl" Grid.Column="1" Content="{Binding Navigator.CurrentViewModel}" Visibility="Collapsed">
         </ContentControl>
 
 
 
         
-        <NavigationView DataContext="{Binding Navigator}" BackgroundSizing="OuterBorderEdge" Height="Auto" PaneDisplayMode="Left" CompactModeThresholdWidth="400"  Grid.Row="1"  IsSettingsVisible="False" IsBackButtonVisible="Collapsed">
+        <NavigationView DataContext="{Binding Navigator}" BackgroundSizing="OuterBorderEdge" Height="Auto" PaneDisplayMode="Left" Grid.Row="1"  IsSettingsVisible="False" IsBackButtonVisible="Collapsed">
             <NavigationView.MenuItems>
+                
                 <NavigationViewItem Content="Домашняя страница" Icon="Home">
 
                     <interact:Interaction.Behaviors>
@@ -67,6 +41,7 @@
                         </interactcore:EventTriggerBehavior>
                     </interact:Interaction.Behaviors>
                 </NavigationViewItem>
+                
                 <NavigationViewItem Content="История транзакций">
                     <NavigationViewItem.Icon>
                         <BitmapIcon UriSource="Assets/NavigationBarIcons/TransactionHistoryIcon.png"></BitmapIcon>
@@ -79,6 +54,7 @@
                         </interactcore:EventTriggerBehavior>
                     </interact:Interaction.Behaviors>
                 </NavigationViewItem>
+                
                 <NavigationViewItem Content="Статистика">
                     <NavigationViewItem.Icon>
                         <BitmapIcon UriSource="Assets/NavigationBarIcons/StatisticsIcon.png"></BitmapIcon>
@@ -89,7 +65,7 @@
 
             <NavigationView.Content>
                 <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                    <ContentControl HorizontalAlignment="Center" Background="Transparent" Content="{Binding ElementName=privet,Path=Content,Converter={StaticResource viewModelConverter}}"></ContentControl>
+                    <ContentControl HorizontalAlignment="Center" Background="Transparent" Content="{Binding ElementName=additionalControl,Path=Content,Converter={StaticResource viewModelConverter}}"></ContentControl>
                 </ScrollViewer>
             </NavigationView.Content>
 

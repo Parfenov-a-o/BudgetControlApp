@@ -11,12 +11,6 @@ namespace BudgetControlApp.UWP.ViewModels.Factories
 {
     public class HomeViewModelFactory : IBudgetControlAppViewModelFactory<HomeViewModel>
     {
-        //private IBudgetControlAppViewModelFactory<HomeViewModel> _homeViewModelFactory;
-
-        //public HomeViewModelFactory(IBudgetControlAppViewModelFactory<HomeViewModel> homeViewModelFactory)
-        //{
-        //    _homeViewModelFactory = homeViewModelFactory;
-        //}
 
         private readonly IAddIncomeService _addIncomeService;
         private readonly IAddExpenseService _addExpenseService;
