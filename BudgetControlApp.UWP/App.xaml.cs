@@ -106,6 +106,39 @@ namespace BudgetControlApp.UWP
                 Window.Current.Activate();
             }
 
+
+
+            IDataService<Account> accountDataService = serviceProvider.GetService<IDataService<Account>>();
+
+            //bool result = await accountDataService.Delete(1);
+
+            if(await accountDataService.Get(1) == null)
+            {
+                Account currentAccount = new Account() 
+                { 
+                    Balance = 500, 
+                    Name = "CurrentAccaunt", 
+                    Transactions = new List<Transaction>()
+                };
+
+                await accountDataService.Create(currentAccount);
+
+                IDataService<ExpenseCategory> expenseCategoryService = serviceProvider.GetService<IDataService<ExpenseCategory>>();
+                IDataService<IncomeCategory> incomeCategoryService = serviceProvider.GetService<IDataService<IncomeCategory>>();
+
+                await expenseCategoryService.Create(new ExpenseCategory() { Name = "Развлечения" });
+                await expenseCategoryService.Create(new ExpenseCategory() { Name = "Еда" });
+                await expenseCategoryService.Create(new ExpenseCategory() { Name = "Транспорт" });
+                await expenseCategoryService.Create(new ExpenseCategory() { Name = "Налоги" });
+                await expenseCategoryService.Create(new ExpenseCategory() { Name = "Страхование" });
+
+                await incomeCategoryService.Create(new IncomeCategory() { Name = "Заработная плата" });
+                await incomeCategoryService.Create(new IncomeCategory() { Name = "Возврат долга" });
+                await incomeCategoryService.Create(new IncomeCategory() { Name = "Дивиденды" });
+                await incomeCategoryService.Create(new IncomeCategory() { Name = "Стипендия" });
+            }
+
+
             //Тест2
             //IDataService<ExpenseCategory> expenseCategoryService = serviceProvider.GetService<IDataService<ExpenseCategory>>();
             //IDataService<IncomeCategory> incomeCategoryService = serviceProvider.GetService<IDataService<IncomeCategory>>();
