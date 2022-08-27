@@ -164,6 +164,8 @@ namespace BudgetControlApp.UWP
             services.AddSingleton<IDataService<Account>, AccountDataService>();
             services.AddSingleton<IDataService<IncomeCategory>, GenericDataService<IncomeCategory>>();
             services.AddSingleton<IDataService<ExpenseCategory>, GenericDataService<ExpenseCategory>>();
+            services.AddSingleton<IDataService<Income>, IncomeDataService>();
+            services.AddSingleton<IDataService<Expense>, ExpenseDataService>();
             services.AddSingleton<IAddIncomeService, AddIncomeService>();
             services.AddSingleton<IAddExpenseService, AddExpenseService>();
 

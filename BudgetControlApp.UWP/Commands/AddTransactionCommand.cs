@@ -48,12 +48,15 @@ namespace BudgetControlApp.UWP.Commands
                     Account account = await _addIncomeService.AddIncome(currentAccount, 
                         _homeViewModel.Amount,_homeViewModel.CategoryId, 
                         _homeViewModel.Comment);
+                    _homeViewModel.Balance += _homeViewModel.Amount;
                 }
                 if (_homeViewModel.SelectedTransactionType == "Расходы")
                 {
                     Account account = await _addExpenseService.AddExpense(currentAccount, 
                         _homeViewModel.Amount, _homeViewModel.CategoryId, 
                         _homeViewModel.Comment);
+                    _homeViewModel.Balance -= _homeViewModel.Amount;
+                    
                 }
             }
             catch(Exception ex)
