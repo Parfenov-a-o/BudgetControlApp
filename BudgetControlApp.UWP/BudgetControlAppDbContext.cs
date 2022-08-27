@@ -21,7 +21,10 @@ namespace BudgetControlApp.UWP
 
         public string DbPath { get; }
 
-        public BudgetControlAppDbContext(DbContextOptions options) : base(options) { }
+        public BudgetControlAppDbContext(DbContextOptions options) : base(options) 
+        {
+            Database.EnsureCreated();
+        }
 
         //public BudgetControlAppDbContext()
         //{

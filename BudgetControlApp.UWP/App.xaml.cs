@@ -106,7 +106,7 @@ namespace BudgetControlApp.UWP
                 Window.Current.Activate();
             }
 
-
+            
 
             IDataService<Account> accountDataService = serviceProvider.GetService<IDataService<Account>>();
 
