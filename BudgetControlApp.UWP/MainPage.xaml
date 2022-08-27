@@ -55,11 +55,11 @@
                     </interact:Interaction.Behaviors>
                 </NavigationViewItem>
                 
-                <NavigationViewItem Content="Статистика">
+                <!--<NavigationViewItem Content="Статистика">
                     <NavigationViewItem.Icon>
                         <BitmapIcon UriSource="Assets/NavigationBarIcons/StatisticsIcon.png"></BitmapIcon>
                     </NavigationViewItem.Icon>
-                </NavigationViewItem>
+                </NavigationViewItem>-->
             </NavigationView.MenuItems>
 
 
